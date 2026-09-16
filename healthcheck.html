@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Health Check | BaraTek Labs</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- INTRODUCTION -->
+
+    <div id="health-intro">
+
+        <h1>Data Health Check</h1>
+
+        <h3>What is your data trying to tell you?</h3>
+
+        <p>
+            BaraTek examines your business data for quality,
+            consistency, structure and opportunities for better reporting.
+        </p>
+
+    </div>
+
+
+    <!-- WHAT WE CHECK -->
+
+    <div id="health-process">
+
+        <h2>What We Check</h2>
+
+
+        <div id="quality-check">
+
+            <h3>Data Quality</h3>
+
+            <p>
+                Missing values, duplicates, invalid records
+                and inconsistencies.
+            </p>
+
+        </div>
+
+
+        <div id="structure-check">
+
+            <h3>Data Structure</h3>
+
+            <p>
+                How your data is organized and whether it
+                is ready for analysis.
+            </p>
+
+        </div>
+
+
+        <div id="business-check">
+
+            <h3>Business Information</h3>
+
+            <p>
+                What useful information can already be
+                extracted from your data.
+            </p>
+
+        </div>
+
+
+        <div id="reporting-check">
+
+            <h3>Reporting Opportunities</h3>
+
+            <p>
+                What metrics and reports could help you
+                understand your business better.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- THE PROCESS -->
+
+    <div id="process">
+
+        <h2>How It Works</h2>
+
+        <h3>01 — Tell Us About Your Data</h3>
+
+        <p>
+            Tell us what kind of data your business collects
+            and what you currently use it for.
+        </p>
+
+
+        <h3>02 — We Examine It</h3>
+
+        <p>
+            BaraTek assesses the structure, quality and
+            usefulness of your data.
+        </p>
+
+
+        <h3>03 — You Receive the Findings</h3>
+
+        <p>
+            We provide a clear assessment of what is working,
+            what needs attention and what can be improved.
+        </p>
+
+    </div>
+
+
+    <!-- REQUEST FORM -->
+
+    <div id="health-action">
+
+        <h2>Request a Data Health Check</h2>
+
+        <p>
+            Tell us a little about yourself, your business
+            and the data you're working with.
+        </p>
+
+
+        <form id="health-form">
+
+            <label for="name">
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+            >
+
+
+            <label for="company">
+                Company
+            </label>
+
+            <input
+                type="text"
+                id="company"
+                name="company"
+            >
+
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+            >
+
+
+            <label for="data-type">
+                What kind of data do you work with?
+            </label>
+
+            <input
+                type="text"
+                id="data-type"
+                name="data-type"
+                placeholder="e.g. sales, customers, inventory"
+            >
+            <label for="dataset">
+            Upload your dataset
+            </label>
+
+            <input
+            type="file"
+            id="dataset"
+            name="dataset"
+            accept=".csv"
+            >
+
+            <label for="problem">
+                What would you like help with?
+            </label>
+
+            <textarea
+                id="problem"
+                name="problem"
+                rows="5"
+            ></textarea>
+
+
+            <button type="submit">
+                Request Data Health Check
+            </button>
+
+        </form>
+<div id="health-results">
+
+    <h2>Data Health Check Results</h2>
+
+    <div id="summary-results">
+
+        <div>
+            <h3>Dataset</h3>
+            <p id="result-filename"></p>
+        </div>
+
+        <div>
+            <h3>Rows</h3>
+            <p id="result-rows"></p>
+        </div>
+
+        <div>
+            <h3>Columns</h3>
+            <p id="result-columns"></p>
+        </div>
+
+        <div>
+            <h3>Completeness</h3>
+            <p id="result-completeness"></p>
+        </div>
+
+        <div>
+            <h3>Missing Values</h3>
+            <p id="result-missing"></p>
+        </div>
+
+        <div>
+            <h3>Duplicate Rows</h3>
+            <p id="result-duplicates"></p>
+        </div>
+
+    </div>
+
+    <h2>Column Analysis</h2>
+
+    <div id="column-results"></div>
+
+</div>
+    </div>
+
+
+    <!-- BACK TO MAIN SITE -->
+
+    <div id="back">
+
+        <a href="index.html">
+            Back to BaraTek
+        </a>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 BaraTek Labs
+        </p>
+
+        <p>
+            Data . Systems . Decisions
+        </p>
+
+    </footer>
+
+<script src="js/main.js"></script>
+</body>
+
+</html>
