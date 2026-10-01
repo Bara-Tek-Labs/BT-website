@@ -1,278 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Data Health Check | BaraTek Labs</title>
+```
+<title>CSV Data Health Check | BaraTek Labs</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta name="description" content="Check your CSV data for missing values, duplicate rows and data quality issues with BaraTek Labs' Data Health Check.">
+
+<meta name="robots" content="index, follow">
+
+<meta name="theme-color" content="#0b3142">
+
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+<!-- Open Graph: social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BaraTek Labs">
+<meta property="og:title" content="CSV Data Health Check | BaraTek Labs">
+<meta property="og:description" content="Check your CSV data for missing values, duplicate rows and data quality issues.">
+<meta property="og:image" content="https://bara-tek-labs.github.io/BT-website/images/logo.png">
+<meta property="og:url" content="https://bara-tek-labs.github.io/BT-website/healthcheck.html">
+
+
+<link rel="canonical" href="https://bara-tek-labs.github.io/BT-website/healthcheck.html">
+
+<link rel="stylesheet" href="style.css">
+```
+
 </head>
 
 <body>
 
-    <!-- INTRODUCTION -->
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo">BaraTek</a>
+    <nav class="links" aria-label="Main">
+      <a href="index.html">&larr; Back to home</a>
+    </nav>
+  </div>
+</header>
 
-    <div id="health-intro">
-
-        <h1>Data Health Check</h1>
-
-        <h3>What is your data trying to tell you?</h3>
-
-        <p>
-            BaraTek examines your business data for quality,
-            consistency, structure and opportunities for better reporting.
-        </p>
-
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <h1>What is your data trying to tell you?</h1>
+      <p>Upload a spreadsheet and we'll check its quality, structure and what it could tell you about your business.</p>
     </div>
+  </section>
 
-
-    <!-- WHAT WE CHECK -->
-
-    <div id="health-process">
-
-        <h2>What We Check</h2>
-
-
-        <div id="quality-check">
-
-            <h3>Data Quality</h3>
-
-            <p>
-                Missing values, duplicates, invalid records
-                and inconsistencies.
-            </p>
-
-        </div>
-
-
-        <div id="structure-check">
-
-            <h3>Data Structure</h3>
-
-            <p>
-                How your data is organized and whether it
-                is ready for analysis.
-            </p>
-
-        </div>
-
-
-        <div id="business-check">
-
-            <h3>Business Information</h3>
-
-            <p>
-                What useful information can already be
-                extracted from your data.
-            </p>
-
-        </div>
-
-
-        <div id="reporting-check">
-
-            <h3>Reporting Opportunities</h3>
-
-            <p>
-                What metrics and reports could help you
-                understand your business better.
-            </p>
-
-        </div>
-
+  <section class="band">
+    <div class="wrap">
+      <h2>What we check</h2>
+      <div class="checks">
+        <div><h3>Data quality</h3><p>Missing values, duplicates, invalid records and inconsistencies.</p></div>
+        <div><h3>Data structure</h3><p>How your data is organised and whether it is ready for analysis.</p></div>
+        <div><h3>Business information</h3><p>What useful information you can already get from your data.</p></div>
+        <div><h3>Reporting opportunities</h3><p>Which numbers and reports could help you understand your business.</p></div>
+      </div>
     </div>
+  </section>
 
-
-    <!-- THE PROCESS -->
-
-    <div id="process">
-
-        <h2>How It Works</h2>
-
-        <h3>01 — Tell Us About Your Data</h3>
-
-        <p>
-            Tell us what kind of data your business collects
-            and what you currently use it for.
-        </p>
-
-
-        <h3>02 — We Examine It</h3>
-
-        <p>
-            BaraTek assesses the structure, quality and
-            usefulness of your data.
-        </p>
-
-
-        <h3>03 — You Receive the Findings</h3>
-
-        <p>
-            We provide a clear assessment of what is working,
-            what needs attention and what can be improved.
-        </p>
-
+  <section>
+    <div class="wrap">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><div><h3>Tell us about your data</h3><p>What you collect and what you use it for.</p></div></li>
+        <li><div><h3>We examine it</h3><p>We assess its structure, quality and usefulness.</p></div></li>
+        <li><div><h3>You get the findings</h3><p>A clear view of what works, what needs attention and what to improve.</p></div></li>
+      </ol>
     </div>
+  </section>
 
+  <section id="health-action" class="band">
+    <div class="wrap">
+      <h2>Check my data</h2>
+      <p style="margin-top:12px">It takes about two minutes. Your results appear below the form.</p>
 
-    <!-- REQUEST FORM -->
+      <form id="health-form" novalidate>
+        <fieldset>
+          <legend>About you</legend>
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" autocomplete="organization" required>
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </fieldset>
 
-    <div id="health-action">
+        <fieldset>
+          <legend>About your data</legend>
+          <label for="data-type">What kind of data do you work with?</label>
+          <input type="text" id="data-type" name="data-type" placeholder="For example: sales, customers, inventory" required>
+          <label for="problem">What would you like help with?</label>
+          <textarea id="problem" name="problem" rows="4" required></textarea>
+          <label for="dataset">Your spreadsheet</label>
+          <p class="hint">Save it as a CSV file first. In Excel: File, Save As, CSV.</p>
+          <input type="file" id="dataset" name="dataset" accept=".csv" required>
+        </fieldset>
 
-        <h2>Request a Data Health Check</h2>
+        <button type="submit" class="btn" id="submit-btn">Check my data</button>
+        <div id="form-msg" class="msg" role="status" aria-live="polite" hidden></div>
+      </form>
 
-        <p>
-            Tell us a little about yourself, your business
-            and the data you're working with.
-        </p>
-
-
-        <form id="health-form">
-
-            <label for="name">
-                Name
-            </label>
-
-            <input
-                type="text"
-                id="name"
-                name="name"
-            >
-
-
-            <label for="company">
-                Company
-            </label>
-
-            <input
-                type="text"
-                id="company"
-                name="company"
-            >
-
-
-            <label for="email">
-                Email
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                name="email"
-            >
-
-
-            <label for="data-type">
-                What kind of data do you work with?
-            </label>
-
-            <input
-                type="text"
-                id="data-type"
-                name="data-type"
-                placeholder="e.g. sales, customers, inventory"
-            >
-            <label for="dataset">
-            Upload your dataset
-            </label>
-
-            <input
-            type="file"
-            id="dataset"
-            name="dataset"
-            accept=".csv"
-            >
-
-            <label for="problem">
-                What would you like help with?
-            </label>
-
-            <textarea
-                id="problem"
-                name="problem"
-                rows="5"
-            ></textarea>
-
-
-            <button type="submit">
-                Request Data Health Check
-            </button>
-
-        </form>
-<div id="health-results">
-
-    <h2>Data Health Check Results</h2>
-
-    <div id="summary-results">
-
-        <div>
-            <h3>Dataset</h3>
-            <p id="result-filename"></p>
+      <div id="health-results" hidden tabindex="-1">
+        <h2>Your results</h2>
+        <p class="verdict" id="verdict"></p>
+        <div id="summary-results">
+          <div><span>File</span><b id="result-filename"></b></div>
+          <div><span>Rows</span><b id="result-rows"></b></div>
+          <div><span>Columns</span><b id="result-columns"></b></div>
+          <div><span>Complete</span><b id="result-completeness"></b></div>
+          <div><span>Missing values</span><b id="result-missing"></b></div>
+          <div><span>Duplicate rows</span><b id="result-duplicates"></b></div>
         </div>
-
-        <div>
-            <h3>Rows</h3>
-            <p id="result-rows"></p>
-        </div>
-
-        <div>
-            <h3>Columns</h3>
-            <p id="result-columns"></p>
-        </div>
-
-        <div>
-            <h3>Completeness</h3>
-            <p id="result-completeness"></p>
-        </div>
-
-        <div>
-            <h3>Missing Values</h3>
-            <p id="result-missing"></p>
-        </div>
-
-        <div>
-            <h3>Duplicate Rows</h3>
-            <p id="result-duplicates"></p>
-        </div>
-
+        <h2 style="font-size:1.6rem;margin-bottom:16px">Column by column</h2>
+        <div id="column-results"></div>
+      </div>
     </div>
+  </section>
+</main>
 
-    <h2>Column Analysis</h2>
-
-    <div id="column-results"></div>
-
-</div>
-    </div>
-
-
-    <!-- BACK TO MAIN SITE -->
-
-    <div id="back">
-
-        <a href="index.html">
-            Back to BaraTek
-        </a>
-
-    </div>
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <p>
-            © 2026 BaraTek Labs
-        </p>
-
-        <p>
-            Data . Systems . Decisions
-        </p>
-
-    </footer>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 BaraTek Labs</p>
+    <p>Data, systems and decisions</p>
+  </div>
+</footer>
 
 <script src="js/main.js"></script>
 </body>
-
 </html>
