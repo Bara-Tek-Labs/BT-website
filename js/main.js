@@ -1,126 +1,94 @@
-const healthForm = document.getElementById("health-form");
+const API = "https://baratek.onrender.com/analyze-dataset";
+const form = document.getElementById("health-form");
 
+if (form) {
+  const msg = document.getElementById("form-msg");
+  const btn = document.getElementById("submit-btn");
+  const results = document.getElementById("health-results");
+  const $ = (id) => document.getElementById(id);
 
-if (healthForm) {
+  const esc = (s) =>
+    String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-    console.log("BaraTek health form listener attached");
+  function show(text, isError) {
+    msg.textContent = text;
+    msg.className = "msg" + (isError ? " error" : "");
+    msg.hidden = false;
+  }
 
-    healthForm.addEventListener("submit", async function(event) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.hidden = true;
 
-        event.preventDefault();
+    const fields = {
+      name: $("name"),
+      company: $("company"),
+      email: $("email"),
+      dataType: $("data-type"),
+      problem: $("problem"),
+    };
+    const file = $("dataset").files[0];
 
-        console.log("BaraTek submit handler fired");
+    for (const input of Object.values(fields)) {
+      if (!input.value.trim()) {
+        input.focus();
+        return show("Please fill in every box. The empty one is highlighted.", true);
+      }
+    }
+    if (!fields.email.checkValidity()) {
+      fields.email.focus();
+      return show("That email address doesn't look right. Check it and try again.", true);
+    }
+    if (!file) return show("Please choose your spreadsheet. It must be a CSV file.", true);
 
+    const data = new FormData();
+    for (const [k, input] of Object.entries(fields)) data.append(k, input.value.trim());
+    data.append("file", file);
 
-        const name = document.getElementById("name").value;
-        const company = document.getElementById("company").value;
-        const email = document.getElementById("email").value;
-        const dataType = document.getElementById("data-type").value;
-        const problem = document.getElementById("problem").value;
-        const dataset = document.getElementById("dataset").files[0];
+    btn.disabled = true;
+    btn.textContent = "Checking your data...";
+    show("Checking your data. The first check can take up to a minute while our server wakes up.");
 
-        if (
-            name === "" ||
-            company === "" ||
-            email === "" ||
-            dataType === "" ||
-            problem === ""
-        ) {
-            alert("Please complete all fields before submitting.");
-            return;
-        }
+    try {
+      const res = await fetch(API, { method: "POST", body: data });
+      if (!res.ok) {
+        let detail = "";
+        try { detail = (await res.json()).detail; } catch (_) {}
+        throw new Error(typeof detail === "string" ? detail : "");
+      }
+      const r = await res.json();
 
-        if (!dataset) {
-            alert("Please upload a CSV dataset.");
-            return;
-        }
+      const issues = r.missing_values + r.duplicate_rows;
+      $("verdict").textContent =
+        issues === 0
+          ? "Good news: we found no missing values or duplicate rows."
+          : `Your data is ${r.completeness}% complete. We found ${r.missing_values.toLocaleString()} missing values and ${r.duplicate_rows.toLocaleString()} duplicate rows.`;
 
-        const formData = new FormData();
+      $("result-filename").textContent = r.filename;
+      $("result-rows").textContent = r.rows.toLocaleString();
+      $("result-columns").textContent = r.columns;
+      $("result-completeness").textContent = r.completeness + "%";
+      $("result-missing").textContent = r.missing_values.toLocaleString();
+      $("result-duplicates").textContent = r.duplicate_rows.toLocaleString();
 
-        formData.append("name", name);
-        formData.append("company", company);
-        formData.append("email", email);
-        formData.append("dataType", dataType);
-        formData.append("problem", problem);
-        formData.append("file", dataset);
+      let rows = "";
+      for (const [col, c] of Object.entries(r.column_report)) {
+        const cls = c.missing_values ? "warn" : "ok";
+        rows += `<tr><td>${esc(col)}</td><td>${esc(c.data_type)}</td><td>${c.missing_values}</td><td class="${cls}">${c.missing_percentage}%</td></tr>`;
+      }
+      $("column-results").innerHTML =
+        `<table><thead><tr><th>Column</th><th>Data type</th><th>Missing values</th><th>Missing</th></tr></thead><tbody>${rows}</tbody></table>`;
 
-        try {
-
-            const response = await fetch(
-                "https://baratek.onrender.com/analyze-dataset",
-                {
-                    method: "POST",
-                    body: formData
-                }
-            );
-
-            const result = await response.json();
-
-            document.getElementById("health-results").style.display = "block";
-
-        document.getElementById("result-filename").textContent = result.filename;
-        document.getElementById("result-rows").textContent = result.rows.toLocaleString();
-        document.getElementById("result-columns").textContent = result.columns;
-        document.getElementById("result-completeness").textContent =
-            result.completeness + "%";
-        document.getElementById("result-missing").textContent =
-            result.missing_values;
-        document.getElementById("result-duplicates").textContent =
-            result.duplicate_rows;
-
-        const columnResults = document.getElementById("column-results");
-
-let table = `
-    <table>
-
-        <thead>
-            <tr>
-                <th>Column</th>
-                <th>Data Type</th>
-                <th>Missing Values</th>
-                <th>Missing %</th>
-            </tr>
-        </thead>
-
-        <tbody>
-`;
-
-for (const column in result.column_report) {
-
-    const report = result.column_report[column];
-
-    table += `
-        <tr>
-            <td>${column}</td>
-            <td>${report.data_type}</td>
-            <td>${report.missing_values}</td>
-            <td>${report.missing_percentage}%</td>
-        </tr>
-    `;
-}
-
-table += `
-        </tbody>
-
-    </table>
-`;
-
-columnResults.innerHTML = table;
-
-document.getElementById("health-results").scrollIntoView({
-    behavior: "smooth"
-});
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                "Something went wrong. Please try again."
-            );
-
-        }
-
-    });
-
+      msg.hidden = true;
+      results.hidden = false;
+      results.scrollIntoView({ behavior: "smooth" });
+      results.focus({ preventScroll: true });
+    } catch (err) {
+      console.error(err);
+      show(err.message || "We couldn't check your file. Make sure it is a CSV with a header row, then try again.", true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Check my data";
+    }
+  });
 }
